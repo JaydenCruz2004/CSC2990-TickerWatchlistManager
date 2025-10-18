@@ -46,12 +46,16 @@ public class SMSReceiver extends BroadcastReceiver {
 
         if (!validFormat) {
             Toast.makeText(context, "No valid watchlist entry found", Toast.LENGTH_LONG).show();
-        } else if (!validTicker) {
-            Toast.makeText(context, "Invalid ticker format", Toast.LENGTH_LONG).show();
-        } else {
-            launchIntent.putExtra(EXTRA_TICKER, ticker);
+            context.startActivity(launchIntent);
+            return;
         }
 
+        if (!validTicker) {
+            Toast.makeText(context, "Invalid ticker format", Toast.LENGTH_LONG).show();
+            context.startActivity(launchIntent);
+            return;
+        }
+        launchIntent.putExtra(EXTRA_TICKER, ticker);
         context.startActivity(launchIntent);
     }
 }
